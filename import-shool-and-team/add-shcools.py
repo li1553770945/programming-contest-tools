@@ -4,16 +4,17 @@ import openpyxl
 import requests
 from config import *
 
-
 schools = list()
 exists_schools = list()
 school_max_id = 1000
+
 
 def get_exists_schools():
     url = f"{DOMJUDGE_URL}/api/contests/2/organizations"
     res = requests.get(url, headers={"cookie": COOKIE})
     for school in res.json():
-        exists_schools.append({"id":school['id'],"name":school['name']})
+        exists_schools.append({"id": school['id'], "name": school['name']})
+
 
 def add_school(name):
     global school_max_id

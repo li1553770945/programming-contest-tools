@@ -11,10 +11,10 @@ team_max_id = 1000
 
 
 def get_schools():
+    global schools
     url = f"{DOMJUDGE_URL}/api/contests/2/organizations"
     res = requests.get(url, headers={"cookie": COOKIE})
-    for school in res.json():
-        schools.append({"id": school['id'], "name": school['name']})
+    schools = res.json()
 
 
 def add_team(name, display_name, school_id, team_type: str, location):

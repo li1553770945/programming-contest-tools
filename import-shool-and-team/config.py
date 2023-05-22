@@ -2,7 +2,7 @@ ADMIN_USERANME = "admin"  # admin 用户名
 ADMIN_PASSWORD = "admin123456"  # admin 密码
 DOMJUDGE_URL = "http://192.168.1.197/domjudge"  # domjudge的地址，不需要最后的“/”
 CONTEST_ID = "2"  # 比赛的id，实测随便一场比赛的ID都行，DOMJUDGE为了获取所有学校信息必须有一个比赛ID
-COOKIE = "domjudge_refresh=1; domjudge_refresh=1; domjudge_submissionsfilter=%7B%7D; domjudge_scorefilter=%5B%5D; domjudge_submissionview=0; domjudge_refresh=1; domjudge_cid=-1; PHPSESSID=08hgkvrbfsbe5mb5dc80edpsdo"  # 使用admin账号登陆的cookie
+COOKIE = "domjudge_refresh=1; domjudge_submissionsfilter=%7B%7D; domjudge_submissionview=0; domjudge_refresh=1; domjudge_cid=2; domjudge_scorefilter=%5B%5D; PHPSESSID=8e0lq0it9ivv5kdhreallutosp"  # 使用admin账号登陆的cookie
 
 
 SCHOOL_NAME_COL = 2  # 学校名字所在列

@@ -18,5 +18,12 @@
 
 添加学校。
 
+## delete
+
+批量删除。具体用法直接看代码，很简单。
+
+## print-account
+
+打印密码条。需要在domjudge中选择“Generate passwords“，生成"accounts.tsv"放到data目录下。
 
 
