@@ -1,8 +1,6 @@
-import json
-
 import openpyxl
 import requests
-from config import *
+from config.config import *
 
 teams = list()
 schools = list()
@@ -20,9 +18,11 @@ def get_schools():
 def add_team(name, display_name, school_id, team_type: str, location):
     global team_max_id
     if team_type.find("打星") != -1:
-        group = "4"
+        group = OBSERVERS_ID
+    elif team_type.find("女") != -1:
+        group = GIRLS_ID
     else:
-        group = "3"
+        group = PARTICIPANTS_ID
     team = {"icpc_id": f"team{team_max_id}", "category": [group, ], "name": name, "display_name": display_name,
             "affiliation": str(school_id), "location": location, "username": f"team{team_max_id}"}
     team_max_id += 1
@@ -81,6 +81,6 @@ def upload_teams():
 
 if __name__ == "__main__":
     get_schools()
-    file_name = "data/teams.xlsx"
+    file_name = "../data/teams.xlsx"
     read_excel(file_name)
     upload_teams()

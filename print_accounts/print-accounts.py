@@ -1,7 +1,8 @@
+import os.path
+
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Side, Border
-from openpyxl.worksheet.pagebreak import PageBreak
-from config import *
+from config.config import *
 import requests
 from bs4 import BeautifulSoup
 
@@ -13,7 +14,7 @@ def get_teams():
     url = f"{DOMJUDGE_URL}/jury/teams"
     res = requests.get(url, headers={"cookie": COOKIE})
     if res.status_code != 200:
-        raise AssertionError(f"访问API获取队伍信息失败:{res.status_code}")
+        raise AssertionError(f"访问domjudge获取队伍信息失败:{res.status_code}")
     soup = BeautifulSoup(res.text, 'html.parser')
 
     # 使用find方法查找具有指定class的表格
@@ -30,10 +31,11 @@ def get_teams():
 
     # 打印提取到的数据
     for row in data:
-        if row[0] == "1":
-            continue
         url = f"{DOMJUDGE_URL}/api/contests/{CONTEST_ID}/teams/{row[0]}"
         res = requests.get(url)
+        if res.status_code != 200:
+            print(f"队伍id:{row[0]}请求API数据失败:{res.text}")
+            continue
         team = res.json()
         teams.append({'id': row[0], 'icpc_id': row[1], 'name': team['name'], 'location': row[7]})
 
@@ -96,8 +98,9 @@ def save_teams():
             ws.cell(row + 1, 4).value = team['password']
             row = row + 4
 
-
-    workbook.save("accounts.xlsx")
+    if not os.path.exists("../result"):
+        os.mkdir("../result")
+    workbook.save("../result/accounts.xlsx")
 
 
 if __name__ == "__main__":

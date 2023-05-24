@@ -1,8 +1,7 @@
-import json
-
 import openpyxl
 import requests
-from config import *
+from requests.auth import HTTPBasicAuth
+from config.config import *
 
 schools = list()
 exists_schools = list()
@@ -11,7 +10,7 @@ school_max_id = 1000
 
 def get_exists_schools():
     url = f"{DOMJUDGE_URL}/api/contests/2/organizations"
-    res = requests.get(url, headers={"cookie": COOKIE})
+    res = requests.get(url, auth=HTTPBasicAuth(ADMIN_USERANME,ADMIN_PASSWORD))
     for school in res.json():
         exists_schools.append({"id": school['id'], "name": school['name']})
 
@@ -66,7 +65,7 @@ def upload_schools():
 if __name__ == "__main__":
     get_exists_schools()
 
-    file_name = "data/teams.xlsx"
+    file_name = "../data/teams.xlsx"
     read_excel(file_name)
     # save_all()
     upload_schools()

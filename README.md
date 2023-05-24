@@ -6,8 +6,12 @@
 
 ### import-school-and-team
 
-只需要一个excel文件，自动添加学校、队伍、用户。
+只需要一个excel文件，自动添加学校、队伍、用户至domjudge。
 
 ### import-school-logo
 
-添加学校的logo。
+添加学校的logo到domjudge。
+
+### save-result-xlsx
+
+将domjudge比赛结果保存为excel文件。
