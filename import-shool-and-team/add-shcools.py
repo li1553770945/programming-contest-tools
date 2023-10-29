@@ -9,8 +9,9 @@ school_max_id = 1000
 
 
 def get_exists_schools():
-    url = f"{DOMJUDGE_URL}/api/contests/2/organizations"
+    url = f"{DOMJUDGE_URL}/api/contests/{CONTEST_ID}/organizations"
     res = requests.get(url, auth=HTTPBasicAuth(ADMIN_USERANME,ADMIN_PASSWORD))
+    print(res)
     for school in res.json():
         exists_schools.append({"id": school['id'], "name": school['name']})
 

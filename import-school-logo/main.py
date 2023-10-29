@@ -12,6 +12,7 @@ def get_exists_schools():
     res = requests.get(url, auth=HTTPBasicAuth(ADMIN_USERANME, ADMIN_PASSWORD))
     for school in res.json():
         schools.append({"id": school['id'], "name": school['name']})
+    print(schools)
 
 
 def find_school(name):
@@ -27,7 +28,7 @@ def upload_logo(school_id, file_name):
         files = {"logo": file}  # 构建文件字典，键名可以根据需求自定义
         response = requests.post(url, auth=HTTPBasicAuth(ADMIN_USERANME, ADMIN_PASSWORD), files=files)
         if response.status_code != 204:
-            print(f"上传失败：{response.status_code}")
+            print(f"上传失败：{response.status_code},{response.text}")
         else:
             print(f"上传成功{file_name}")
 
@@ -36,9 +37,12 @@ def read_files(dir_name):
     files = os.listdir(dir_name)
     for filename in files:
         basename, extension = os.path.splitext(filename)
+        basename = basename.replace(" ","")
         school = find_school(basename)
         if school is None:
-            raise AssertionError(f"domjudge无法找到学校:{basename}")
+            print(f"warning:domjudge无法找到学校:{basename}")
+            continue
+        print(f"正准备上传{basename}")
         upload_logo(school['id'], os.path.join(dir_name, filename))
 
 
